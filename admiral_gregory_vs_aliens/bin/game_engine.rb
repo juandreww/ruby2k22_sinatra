@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative './Spaceship'
 
 class GameEngine
@@ -34,6 +36,20 @@ class GameEngine
       @game.in_game
     else
       puts 'Sorry to see you go. Play again!'
+    end
+  end
+
+  def loading
+    5.times do
+      puts '.'
+      sleep(0.1)
+    end
+  end
+
+  def loading_slow
+    5.times do
+      puts '.'
+      sleep(0.5)
     end
   end
 

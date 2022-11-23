@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sinatra'
 
 set :port, 8080
@@ -16,5 +18,5 @@ end
 post '/hello/' do
   greeting = params[:greeting] || 'Hi There'
   name = params[:name] || 'Nobody'
-  erb :index, :locals => {'greeting' => greeting, 'name' => name}
+  erb :index, :locals => { 'greeting' => greeting, 'name' => name }
 end

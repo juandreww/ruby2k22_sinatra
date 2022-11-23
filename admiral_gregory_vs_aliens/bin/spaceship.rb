@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative './Alien'
 require_relative './Hero'
 
@@ -164,29 +166,29 @@ class Spaceship
         next_move = true
         case act.downcase
         when 'punch'
-          if previous_move == act
-            damage = -100
-          else
-            damage = @new_hero.punch
-          end
+          damage = if previous_move == act
+                    -100
+                  else
+                    @new_hero.punch
+                  end
         when 'kick'
-          if previous_move == act
-            damage = -100
-          else
-            damage = @new_hero.kick
-          end
+          damage = if previous_move == act
+                    -100
+                  else
+                    @new_hero.kick
+                  end
         when 'headbutt'
-          if previous_move == act
-            damage = -100
-          else
-            damage = @new_hero.headbutt
-          end
+          damage = if previous_move == act
+                    -100
+                  else
+                    @new_hero.headbutt
+                  end
         when 'excalibur'
-          if previous_move == act
-            damage = -100
-          else
-            damage = @new_hero.excalibur_attack
-          end
+          damage = if previous_move == act
+                    -100
+                  else
+                    @new_hero.excalibur_attack
+                  end
           puts 'You have no excalibur' if @new_hero.allow_weapon == false
         when 'muramasa'
           if previous_move == act
@@ -237,20 +239,6 @@ class Spaceship
     else
       puts 'Have a nice day'
       exit
-    end
-  end
-
-  def loading
-    5.times do
-      puts '.'
-      sleep(0.1)
-    end
-  end
-
-  def loading_slow
-    5.times do
-      puts '.'
-      sleep(0.5)
     end
   end
 end
