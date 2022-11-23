@@ -2,6 +2,7 @@
 
 require_relative './Spaceship'
 
+# Game Engine
 class GameEngine
   def initialize
     @current_state = ''

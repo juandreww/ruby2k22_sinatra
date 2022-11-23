@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Hero
 class Hero
   def initialize
     @allow_weapon = false

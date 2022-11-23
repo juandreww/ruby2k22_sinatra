@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Alien
 class Alien
   def ghoul
     100
