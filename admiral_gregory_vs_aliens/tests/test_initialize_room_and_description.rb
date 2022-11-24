@@ -1,18 +1,20 @@
 # frozen_string_literal: true
 
-require 'admiral_gregory_vs_aliens/bin/rubyorg/game_room'
+require './bin/rubyorg/game_room'
+require 'test/unit'
+require 'rack/test'
 
 # Testing Game Room
 class TestInitializeRoomAndDescription < Test::Unit::TestCase
   def test_room
-    gold = Room.new('Gold Room', 'This room has gold in it, you can grab.\nThere\'s a door to the north.')
+    gold = GameRoom.new('Gold Room', 'This room has gold in it, you can grab.\nThere\'s a door to the north.')
     assert_equal('Gold Room', gold.name)
   end
 
   def test_room_paths
-    center = Room.new('Center', 'Test room in the center.')
-    north = Room.new('North', 'Test room in the north')
-    south = Room.new('South', 'Test room in the south.')
+    center = GameRoom.new('Center', 'Test room in the center.')
+    north = GameRoom.new('North', 'Test room in the north')
+    south = GameRoom.new('South', 'Test room in the south.')
 
     center.add_paths({ 'north' => north, 'south' => south })
     assert_equal(north, center.go('north'))
@@ -20,9 +22,9 @@ class TestInitializeRoomAndDescription < Test::Unit::TestCase
   end
 
   def test_map
-    start = Room.new('Start', 'Youcan go west and down a hole.')
-    west = Room.new('Trees', 'There are trees here,you can go east.')
-    down = Room.new('Dungeon', 'Itis dark down here, you can go up.')
+    start = GameRoom.new('Start', 'You can go west and down a hole.')
+    west = GameRoom.new('Trees', 'There are trees here,you can go east.')
+    down = GameRoom.new('Dungeon', 'It is dark down here, you can go up.')
 
     start.add_paths({ 'west' => west, 'down' => down })
     west.add_paths({ 'east' => start })
