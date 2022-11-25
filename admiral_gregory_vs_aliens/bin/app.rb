@@ -16,7 +16,9 @@ get '/' do
 end
 
 get '/game' do
-  room = Map::GameRoom.load_room(session[:room])
+  puts '------------------'
+  puts session[:room]
+  room = Map::GameRoom.load_room(session)
 
   if room
     erb :show_room, :locals => { :room => room }
@@ -26,7 +28,7 @@ get '/game' do
 end
 
 post '/game' do
-  room = Map::GameRoom.load_room(session[:room])
+  room = Map::GameRoom.load_room(session)
   action = params[:action]
 
   if room
@@ -38,4 +40,13 @@ post '/game' do
   else
     erb :you_died
   end
+end
+
+get '/bar' do
+  <<-ENDRESPONSE
+    Ruby:    #{RUBY_VERSION}
+    Rack:    #{Rack::VERSION}
+    Sinatra: #{Sinatra::VERSION}
+    #{session['m'].inspect}
+  ENDRESPONSE
 end
