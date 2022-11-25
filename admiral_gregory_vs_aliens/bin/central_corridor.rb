@@ -1,7 +1,18 @@
 # frozen_string_literal: true
 
+require_relative 'hero'
+require_relative 'alien'
+require_relative 'locked_door'
+
 # central corridor
 class CentralCorridor < Spaceship
+  def initialize
+    super
+
+    @new_hero = Hero.new
+    @new_alien = Alien.new
+  end
+
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
   def room
     puts "He meets an Alien with type Banshee. Due to its stealthy move, you cannot use Kick and Headbutt.
@@ -46,7 +57,7 @@ class CentralCorridor < Spaceship
       else
         puts 'Great. You killed Banshee!'
         puts
-        locked_door
+        LockedDoor.new.room
       end
     end
   end

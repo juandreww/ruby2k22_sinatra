@@ -1,7 +1,16 @@
 # frozen_string_literal: true
 
+require_relative 'exit_room'
+
 # Bridge
 class Bridge < Spaceship
+  def initialize
+    super
+
+    @new_alien = Alien.new
+    @new_hero = Hero.new
+  end
+
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def room
     puts "He meets an Alien with type Necromancer. Due to its intelligence, you cannot use the same move repeatedly.
@@ -36,7 +45,7 @@ class Bridge < Spaceship
     puts 'Great. You killed Necromancer!'
     puts
 
-    exit_room
+    ExitRoom.new.room
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 

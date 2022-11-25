@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
 require 'sinatra'
-require './lib/gothonweb/map.rb'
+require './bin/rubyorg/map'
 
 set :port, 8080
 set :static, true
 set :public_folder, 'static'
-set :views, "views"
-enable :sessions
+set :views, 'views'
 set :session_secret, 'BADSECRET'
 
 get '/' do
@@ -16,7 +15,7 @@ get '/' do
 end
 
 get '/game' do
-  room = Map::load_room(session)
+  room = Map::GameRoom.load_room(session)
 
   if room
     erb :show_room, :locals => { :room => room }
@@ -26,15 +25,13 @@ get '/game' do
 end
 
 post '/game' do
-  room = Map::load_room(session)
+  room = Map::GameRoom.load_room(session)
   action = params[:action]
 
   if room
     next_room = room.go(action) || room.go('*')
 
-    if next_room
-      Map::save_room(session, next_room)
-    end
+    Map::GameRoom.save_room(session, next_room) if next_room
 
     redirect to('/game')
   else

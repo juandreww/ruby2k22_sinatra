@@ -1,9 +1,18 @@
 # frozen_string_literal: true
 
+require_relative 'game_engine'
+require_relative 'bridge'
+
 # locked door
 class LockedDoor < Spaceship
+  def initialize
+    super
+
+    @game_engine = GameEngine.new
+  end
+
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-  def locked_door
+  def room
     puts 'You are slowly walking to the bridge, when you meet a door with a digital lock in it'
     @game_engine.loading_slow
     puts 'You have to answer correctly the question. Or you will not be able to proceed to the next game.'

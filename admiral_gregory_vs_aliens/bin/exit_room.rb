@@ -1,7 +1,15 @@
 # frozen_string_literal: true
 
+require_relative 'game_engine'
+
 # exit_room
 class ExitRoom < Spaceship
+  def initialize
+    super
+
+    @game_engine = GameEngine.new
+  end
+
   # rubocop:disable Metrics/MethodLength
   def room
     @game_engine.loading_slow
@@ -15,7 +23,7 @@ class ExitRoom < Spaceship
     case act.downcase
     when 'yes'
       puts 'Ok'
-      @game_engine..in_game
+      @game_engine.in_game
     else
       puts 'Have a nice day'
       exit

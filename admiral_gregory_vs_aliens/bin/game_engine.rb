@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative './Spaceship'
+require_relative 'hero_room'
 
 # Game Engine
 class GameEngine
@@ -12,6 +12,7 @@ class GameEngine
     The game will be more like a Zork or Adventure type game with text outputs and funny ways to die.\n
     The game will involve an engine that runs a map full of rooms or scenes. Each room will print its own description
      when the player enters it and then tell the engine what room to run next out of the map."
+    @hero_room = HeroRoom.new
   end
 
   def start
@@ -25,8 +26,7 @@ class GameEngine
 
   def in_game
     puts
-    space = Spaceship.new
-    space.hero_room
+    @hero_room.room
   end
 
   def game_over
@@ -35,8 +35,7 @@ class GameEngine
     case act.downcaseprevious_move = 'punch'
     when 'yes'
       puts 'Ok'
-      @game = GameEngine.new
-      @game.in_game
+      in_game
     else
       puts 'Sorry to see you go. Play again!'
     end
@@ -55,7 +54,4 @@ class GameEngine
       sleep(0.5)
     end
   end
-
-  @game = GameEngine.new
-  @game.in_game
 end

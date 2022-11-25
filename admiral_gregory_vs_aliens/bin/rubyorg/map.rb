@@ -2,6 +2,7 @@
 
 # https://learnrubythehardway.org/book/ex52.html
 module Map
+  # rubocop:disable Lint/ImplicitStringConcatenation, Metrics/ClassLength
   # https://learnrubythehardway.org/book/ex52.html
   class GameRoom
     def initialize(name, description)
@@ -29,22 +30,21 @@ module Map
       session[:room] = ROOM_NAMES.key(room)
     end
 
-    CENTRAL_CORRIDOR = Map::GameRoom.new('Central Corridor',
-      """
+    CENTRAL_CORRIDOR = Map::GameRoom.new('Central Corridor', ''"
       The Gothons of Planet Percal #25 have invaded your ship and destroyed
       your entire crew.  You are the last surviving member and your last
       mission is to get the neutron destruct bomb from the Weapons Armory,
       put it in the bridge, and blow the ship up after getting into an
       escape pod.
 
-      You're running down the central corridor to the Weapons Armory when
+      You\'re running down the central corridor to the Weapons Armory when
       a Gothon jumps out, red scaly skin, dark grimy teeth, and evil clown costume
-      flowing around his hate filled body.  He's blocking the door to the
+      flowing around his hate filled body.  He\'s blocking the door to the
       Armory and about to pull a weapon to blast you.
-      """)
+      "'')
 
     LASER_WEAPON_ARMORY = Map::GameRoom.new('Laser Weapon Armory',
-      """
+                                            ''"
       Lucky for you they made you learn Gothon insults in the academy.
       You tell the one Gothon joke you know:
       Lbhe zbgure vf fb sng, jura fur fvgf nebhaq gur ubhfr, fur fvgf nebhaq gur ubhfr.
@@ -59,10 +59,10 @@ module Map
       and you need the code to get the bomb out.  If you get the code
       wrong 10 times then the lock closes forever and you can't
       get the bomb.  The code is 3 digits.
-      """)
+      "'')
 
     THE_BRIDGE = Map::GameRoom.new('The Bridge',
-      """
+                                   ''"
       The container clicks open and the seal breaks, letting gas out.
       You grab the neutron bomb and run as fast as you can to the
       bridge where you must place it in the right spot.
@@ -73,10 +73,10 @@ module Map
       clown costume than the last.  They haven't pulled their
       weapons out yet, as they see the active bomb under your
       arm and don't want to set it off.
-      """)
+      "'')
 
     ESCAPE_POD = Map::GameRoom.new('Escape Pod',
-      """
+                                   ''"
       You point your blaster at the bomb under your arm
       and the Gothons put their hands up and start to sweat.
       You inch backward to the door, open it, and then carefully
@@ -93,52 +93,52 @@ module Map
       now need to pick one to take.  Some of them could be damaged
       but you don't have time to look.  There's 5 pods, which one
       do you take?
-      """)
+      "'')
 
     THE_END_WINNER = Map::GameRoom.new('The End',
-      """
+                                       ''"
       You jump into pod 2 and hit the eject button.
       The pod easily slides out into space heading to
       the planet below.  As it flies to the planet, you look
       back and see your ship implode then explode like a
       bright star, taking out the Gothon ship at the same
       time.  You won!
-      """)
+      "'')
 
     THE_END_LOSER = Map::GameRoom.new('The End',
-      """
+                                      ''"
       You jump into a random pod and hit the eject button.
       The pod escapes out into the void of space, then
       implodes as the hull ruptures, crushing your body
       into jam jelly.
-      """
-      )
+      "'')
 
     ESCAPE_POD.add_paths({
-      '2' => THE_END_WINNER,
-      '*' => THE_END_LOSER
-    })
+                           '2' => THE_END_WINNER,
+                           '*' => THE_END_LOSER
+                         })
 
     GENERIC_DEATH = Map::GameRoom.new('death', 'You died.')
 
     THE_BRIDGE.add_paths({
-      'throw the bomb' => GENERIC_DEATH,
-      'slowlyplace the bomb' => ESCAPE_POD
-    })
+                           'throw the bomb' => GENERIC_DEATH,
+                           'slowlyplace the bomb' => ESCAPE_POD
+                         })
 
     LASER_WEAPON_ARMORY.add_paths({
-      '0132' => THE_BRIDGE,
-      '*' => GENERIC_DEATH
-    })
+                                    '0132' => THE_BRIDGE,
+                                    '*' => GENERIC_DEATH
+                                  })
 
     CENTRAL_CORRIDOR.add_paths({
-      'shoot!' => GENERIC_DEATH,
-      'dodge!' => GENERIC_DEATH,
-      'tell a joke' => LASER_WEAPON_ARMORY
-    })
+                                 'shoot!' => GENERIC_DEATH,
+                                 'dodge!' => GENERIC_DEATH,
+                                 'tell a joke' => LASER_WEAPON_ARMORY
+                               })
 
     START = CENTRAL_CORRIDOR
 
+    # rubocop:disable Style/MutableConstant
     ROOM_NAMES = {
       'CENTRAL_CORRIDOR' => CENTRAL_CORRIDOR,
       'LASER_WEAPON_ARMORY' => LASER_WEAPON_ARMORY,
@@ -148,5 +148,7 @@ module Map
       'THE_END_LOSER' => THE_END_LOSER,
       'START' => START
     }
+    # rubocop:enable Style/MutableConstant
   end
+  # rubocop:enable Lint/ImplicitStringConcatenation, Metrics/ClassLength
 end

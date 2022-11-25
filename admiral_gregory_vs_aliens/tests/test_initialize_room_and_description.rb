@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 require './bin/rubyorg/map'
+require './bin/hero_room'
+require './bin/locked_door'
 require 'test/unit'
 require 'rack/test'
+require 'byebug'
 
 # Testing Game Room
 class TestInitializeRoomAndDescription < Test::Unit::TestCase
@@ -59,5 +62,12 @@ class TestInitializeRoomAndDescription < Test::Unit::TestCase
 
     Map::GameRoom.save_room(session, room)
     assert_equal(room, Map::GameRoom::LASER_WEAPON_ARMORY)
+  end
+
+  def test_spaceship
+    hero_room = HeroRoom.new.room
+    byebug
+
+    space
   end
 end

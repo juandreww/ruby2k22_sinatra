@@ -1,7 +1,20 @@
 # frozen_string_literal: true
 
+require_relative 'spaceship'
+require_relative 'alien'
+require_relative 'hero'
+require_relative 'armory'
+require_relative 'central_corridor'
+
 # HeroRoom
 class HeroRoom < Spaceship
+  def initialize
+    super
+
+    @new_alien = Alien.new
+    @new_hero = Hero.new
+  end
+
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def room
     puts 'He meets an Alien with type Ghoul. It barges in to Hero Room.
@@ -40,9 +53,9 @@ class HeroRoom < Spaceship
     next_move = true
     case act
     when '1'
-      armory
+      Armory.new.room
     when '2'
-      central_corridor
+      CentralCorridor.new.room
     else
       puts 'Don\'t understand the command. Type again'
       next_move = false
