@@ -7,11 +7,6 @@ class GameEngine
   def initialize
     @current_state = ''
 
-    puts "Aliens have invaded a space ship and our hero has to go through a maze of rooms defeating them
-     so he can escape into an escape pod to the planet below.\n
-    The game will be more like a Zork or Adventure type game with text outputs and funny ways to die.\n
-    The game will involve an engine that runs a map full of rooms or scenes. Each room will print its own description
-     when the player enters it and then tell the engine what room to run next out of the map."
     @hero_room = HeroRoom.new
   end
 
@@ -19,13 +14,23 @@ class GameEngine
     gets = $stdin.gets.chomp
     if gets == 'start'
       @current_state = ''
+      opening_text
       in_game
     end
     start
   end
 
+  def opening_text
+    puts "Aliens have invaded a space ship and our hero has to go through a maze of rooms defeating them
+     so he can escape into an escape pod to the planet below.\n
+    The game will be more like a Zork or Adventure type game with text outputs and funny ways to die.\n
+    The game will involve an engine that runs a map full of rooms or scenes. Each room will print its own description
+     when the player enters it and then tell the engine what room to run next out of the map."
+  end
+
   def in_game
     puts
+    opening_text
     @hero_room.room
   end
 

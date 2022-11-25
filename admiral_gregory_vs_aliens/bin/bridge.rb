@@ -9,6 +9,7 @@ class Bridge < Spaceship
 
     @new_alien = Alien.new
     @new_hero = Hero.new
+    @new_hero.allow_weapon = true
   end
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
@@ -28,7 +29,7 @@ class Bridge < Spaceship
       while next_move == false
         act = $stdin.gets.chomp
         next_move = true
-        damage, next_move = damage_dealt_by_hero(act.downcase, previous_move)
+        damage, next_move = damage_dealt_by_hero(act.downcase, previous_move, next_move)
       end
 
       if act == previous_move
@@ -56,15 +57,15 @@ class Bridge < Spaceship
     damage = 0
     case act
     when 'punch'
-      @new_hero.punch
+      damage = @new_hero.punch
     when 'kick'
-      @new_hero.kick
+      damage = @new_hero.kick
     when 'headbutt'
-      @new_hero.headbutt
+      damage = @new_hero.headbutt
     when 'excalibur'
-      @new_hero.excalibur
+      damage = @new_hero.excalibur_attack
     when 'muramasa'
-      @new_hero.muramasa_rifle_shot
+      damage = @new_hero.muramasa_rifle_shot
     else
       puts 'Don\'t understand the command. Type again'
       next_move = false

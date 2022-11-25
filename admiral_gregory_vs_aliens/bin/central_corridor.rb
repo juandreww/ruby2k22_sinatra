@@ -7,11 +7,14 @@ require_relative 'locked_door'
 # central corridor
 class CentralCorridor < Spaceship
   def initialize
-    super
+    super()
 
     @new_hero = Hero.new
+    @new_hero.allow_weapon = true
     @new_alien = Alien.new
   end
+
+  attr_reader :allow_weapon
 
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
   def room
