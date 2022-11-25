@@ -7,6 +7,7 @@ set :port, 8080
 set :static, true
 set :public_folder, 'static'
 set :views, 'views'
+enable :sessions
 set :session_secret, 'BADSECRET'
 
 get '/' do
@@ -15,7 +16,7 @@ get '/' do
 end
 
 get '/game' do
-  room = Map::GameRoom.load_room(session)
+  room = Map::GameRoom.load_room(session[:room])
 
   if room
     erb :show_room, :locals => { :room => room }
@@ -25,7 +26,7 @@ get '/game' do
 end
 
 post '/game' do
-  room = Map::GameRoom.load_room(session)
+  room = Map::GameRoom.load_room(session[:room])
   action = params[:action]
 
   if room

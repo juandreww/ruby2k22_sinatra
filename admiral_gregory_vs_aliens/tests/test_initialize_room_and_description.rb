@@ -65,9 +65,6 @@ class TestInitializeRoomAndDescription < Test::Unit::TestCase
   end
 
   def test_spaceship
-    hero_room = HeroRoom.new.room
-    byebug
-
-    space
+    HeroRoom.new.room
   end
 end

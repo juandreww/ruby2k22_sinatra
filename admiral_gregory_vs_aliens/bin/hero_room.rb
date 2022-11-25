@@ -15,7 +15,7 @@ class HeroRoom < Spaceship
     @new_hero = Hero.new
   end
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity
   def room
     puts 'He meets an Alien with type Ghoul. It barges in to Hero Room.
     Approaching slowly yet with it intent to kill.'
@@ -30,11 +30,11 @@ class HeroRoom < Spaceship
         act = $stdin.gets.chomp
         next_move = true
         case act.downcase
-        when 'punch'
+        when 'punch' || 'p'
           damage = @new_hero.punch
-        when 'kick'
+        when 'kick' || 'k'
           damage = @new_hero.kick
-        when 'headbutt'
+        when 'headbutt' || 'h'
           damage = @new_hero.headbutt
         else
           puts 'Don\'t understand the command. Type again'
@@ -46,7 +46,7 @@ class HeroRoom < Spaceship
       check_hero_next_action(ghoul)
     end
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   # rubocop:disable Metrics/MethodLength
   def check_input_act(act)

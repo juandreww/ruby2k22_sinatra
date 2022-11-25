@@ -31,15 +31,15 @@ class CentralCorridor < Spaceship
         act = $stdin.gets.chomp
         next_move = true
         case act.downcase
-        when 'punch'
+        when 'punch' || 'p'
           damage = @new_hero.punch
-        when 'kick'
+        when 'kick' || 'k'
           damage = -25
-        when 'headbutt'
+        when 'headbutt' || 'h'
           damage = -25
-        when 'excalibur'
+        when 'excalibur' || 'e'
           damage = @new_hero.excalibur_attack
-        when 'muramasa'
+        when 'muramasa' || 'm'
           damage = @new_hero.muramasa_rifle_shot
         else
           puts 'Don\'t understand the command. Type again'

@@ -50,21 +50,21 @@ class Bridge < Spaceship
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def damage_dealt_by_hero(act, previous_move, next_move)
     return [-100, next_move] if act == previous_move
 
     damage = 0
     case act
-    when 'punch'
+    when 'punch' || 'p'
       damage = @new_hero.punch
-    when 'kick'
+    when 'kick' || 'k'
       damage = @new_hero.kick
-    when 'headbutt'
+    when 'headbutt' || 'h'
       damage = @new_hero.headbutt
-    when 'excalibur'
+    when 'excalibur' || 'e'
       damage = @new_hero.excalibur_attack
-    when 'muramasa'
+    when 'muramasa' || 'm'
       damage = @new_hero.muramasa_rifle_shot
     else
       puts 'Don\'t understand the command. Type again'
@@ -73,5 +73,5 @@ class Bridge < Spaceship
 
     [damage, next_move]
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
