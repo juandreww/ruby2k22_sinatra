@@ -21,14 +21,10 @@ class Hero
   end
 
   def excalibur_attack
-    return 0 if @allow_weapon == false
-
     300
   end
 
   def muramasa_rifle_shot
-    return 0 if @allow_weapon == false
-
     250
   end
 end

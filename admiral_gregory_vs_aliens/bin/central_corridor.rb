@@ -22,8 +22,8 @@ class CentralCorridor < Spaceship
 
   attr_reader :description, :name, :banshee
 
-  # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/AbcSize
-  def damage_dealt_by_action(action)
+  # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def damage_dealt_by_action(action, allow_using_weapon)
     hero_next_move = true
     damage = 0
 
@@ -35,14 +35,14 @@ class CentralCorridor < Spaceship
     when 'headbutt'
       damage = -25
     when 'excalibur'
-      damage = @new_hero.excalibur_attack
+      damage = allow_using_weapon ? @new_hero.excalibur_attack : 0
     when 'muramasa'
-      damage = @new_hero.muramasa_rifle_shot
+      damage = allow_using_weapon ? @new_hero.muramasa_rifle_shot : 0
     else
       hero_next_move = false
     end
 
-    comment = if hero_next_move == true && (act.downcase == 'kick' || act.downcase == 'headbutt')
+    comment = if hero_next_move == true && (%w[kick headbutt].include? action)
                 "Oh no! You went for a #{action} and deal 0 damage. It increases HP of Banshee by #{damage.abs}"
               elsif hero_next_move == true
                 "Great! You went for a #{action} and deal damage of #{damage}"
@@ -54,16 +54,16 @@ class CentralCorridor < Spaceship
 
     [damage, hero_next_move, comment]
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def check_hero_next_action(banshee, damage)
     banshee -= damage
     comment = if banshee.positive?
                 "Banshee's HP is now #{banshee}
 
-    What the hero should do? (punch/ kick/ headbutt/ excalibur/ muramasa)"
+  What the hero should do? (punch/ kick/ headbutt/ excalibur/ muramasa)"
               else
-                'Great. You killed Banshee!'
+                ''
               end
 
     [banshee, comment]
