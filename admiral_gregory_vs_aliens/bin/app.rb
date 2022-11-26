@@ -9,6 +9,7 @@ require './bin/central_corridor'
 require './bin/locked_door'
 require './bin/bridge'
 require './bin/exit_room'
+require './bin/game_engine'
 
 set :port, 8080
 set :static, true
@@ -47,11 +48,14 @@ post '/game' do
 end
 
 get '/hero_room' do
+  prologue = GameEngine.new.opening_text
   room = HeroRoom.new
+  comment = prologue + room.description
+
   session[:ghoul] = room.ghoul
   session[:hero_next_move] = false
   path = '/hero_room'
-  go_to_room(room, path)
+  go_to_room(room, path, comment)
 end
 
 post '/hero_room' do
