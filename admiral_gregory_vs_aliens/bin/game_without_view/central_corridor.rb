@@ -19,7 +19,7 @@ class CentralCorridor < Spaceship
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
   def room
     puts "He meets an Alien with type Banshee. Due to its stealthy move, you cannot use Kick and Headbutt.
-    Approaching slowly yet with it intent to kill."
+    Approaching slowly yet with intent to kill."
     puts
     puts 'What the hero should do? (punch/ kick/ headbutt/ excalibur/ muramasa)'
 

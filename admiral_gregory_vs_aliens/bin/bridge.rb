@@ -15,7 +15,7 @@ class Bridge < Spaceship
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def room
     puts "He meets an Alien with type Necromancer. Due to its intelligence, you cannot use the same move repeatedly.
-    Approaching slowly yet with it intent to kill."
+    Approaching slowly yet with intent to kill."
     puts
 
     necromancer = @new_alien.necromancer

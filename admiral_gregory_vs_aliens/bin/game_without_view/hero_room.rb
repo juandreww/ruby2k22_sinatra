@@ -18,7 +18,7 @@ class HeroRoom < Spaceship
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity
   def room
     puts 'He meets an Alien with type Ghoul. It barges in to Hero Room.
-    Approaching slowly yet with it intent to kill.'
+    Approaching slowly yet with intent to kill.'
     puts
     puts 'What the hero should do? (punch/ kick/ headbutt)'
 

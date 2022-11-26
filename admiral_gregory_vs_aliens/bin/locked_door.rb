@@ -9,14 +9,18 @@ class LockedDoor < Spaceship
     super
 
     @game_engine = GameEngine.new
+    @name = 'Locked Door'
+    @description = "You are slowly walking to the bridge, when you meet a door with a digital lock in it
+
+  You have to answer correctly the question. Or you will not be able to proceed to the next game.
+  What is the color that dont care?"
   end
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  attr_reader :description, :name
+
+  # rubocop:disable Metrics/MethodLength
   def room
-    puts 'You are slowly walking to the bridge, when you meet a door with a digital lock in it'
     @game_engine.loading_slow
-    puts 'You have to answer correctly the question. Or you will not be able to proceed to the next game.'
-    puts 'What is the color that dont care?'
     try_count = 4
     while try_count.positive?
       act = $stdin.gets.chomp
@@ -36,5 +40,5 @@ class LockedDoor < Spaceship
 
     @game_engine.game_over
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 end

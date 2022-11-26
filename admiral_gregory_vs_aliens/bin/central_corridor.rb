@@ -10,59 +10,62 @@ class CentralCorridor < Spaceship
     super()
 
     @new_hero = Hero.new
-    @new_hero.allow_weapon = true
     @new_alien = Alien.new
+    @banshee = @new_alien.banshee
+    @name = 'Central Corridor'
+    @description = "
+  He meets an Alien with type Banshee. Due to its stealthy move, you cannot use Kick and Headbutt.
+  Approaching slowly yet with intent to kill.
+
+  What the hero should do? (punch/ kick/ headbutt/ excalibur/ muramasa)"
   end
 
-  attr_reader :allow_weapon
+  attr_reader :description, :name, :banshee
 
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
-  def room
-    puts "He meets an Alien with type Banshee. Due to its stealthy move, you cannot use Kick and Headbutt.
-    Approaching slowly yet with it intent to kill."
-    puts
-    puts 'What the hero should do? (punch/ kick/ headbutt/ excalibur/ muramasa)'
-
-    banshee = @new_alien.banshee
+  # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/AbcSize
+  def damage_dealt_by_action(action)
+    hero_next_move = true
     damage = 0
-    while banshee.positive?
-      next_move = false
-      while next_move == false
-        act = $stdin.gets.chomp
-        next_move = true
-        case act.downcase
-        when 'punch' || 'p'
-          damage = @new_hero.punch
-        when 'kick' || 'k'
-          damage = -25
-        when 'headbutt' || 'h'
-          damage = -25
-        when 'excalibur' || 'e'
-          damage = @new_hero.excalibur_attack
-        when 'muramasa' || 'm'
-          damage = @new_hero.muramasa_rifle_shot
-        else
-          puts 'Don\'t understand the command. Type again'
-          next_move = false
-        end
-      end
 
-      if act.downcase == 'kick' || act.downcase == 'headbutt'
-        puts "Oh no! You went for a #{act.downcase} and deal 0 damage. It increases HP of Banshee by #{damage.abs}"
-      else
-        puts "Great! You went for a #{act.downcase} and deal damage of #{damage}"
-      end
-
-      banshee -= damage
-      if banshee.positive?
-        puts "Banshee's HP is now #{banshee}"
-        puts 'What the hero should do? (punch/ kick/ headbutt/ excalibur/ muramasa)'
-      else
-        puts 'Great. You killed Banshee!'
-        puts
-        LockedDoor.new.room
-      end
+    case action
+    when 'punch'
+      damage = @new_hero.punch
+    when 'kick'
+      damage = -25
+    when 'headbutt'
+      damage = -25
+    when 'excalibur'
+      damage = @new_hero.excalibur_attack
+    when 'muramasa'
+      damage = @new_hero.muramasa_rifle_shot
+    else
+      hero_next_move = false
     end
+
+    comment = if hero_next_move == true && (act.downcase == 'kick' || act.downcase == 'headbutt')
+                "Oh no! You went for a #{action} and deal 0 damage. It increases HP of Banshee by #{damage.abs}"
+              elsif hero_next_move == true
+                "Great! You went for a #{action} and deal damage of #{damage}"
+              else
+                "Don't understand the command. Type again
+
+  What the hero should do? (punch/ kick/ headbutt/ excalibur/ muramasa)"
+              end
+
+    [damage, hero_next_move, comment]
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/AbcSize
+
+  def check_hero_next_action(banshee, damage)
+    banshee -= damage
+    comment = if banshee.positive?
+                "Banshee's HP is now #{banshee}
+
+    What the hero should do? (punch/ kick/ headbutt/ excalibur/ muramasa)"
+              else
+                'Great. You killed Banshee!'
+              end
+
+    [banshee, comment]
+  end
 end

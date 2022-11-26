@@ -6,26 +6,27 @@ require_relative 'central_corridor'
 
 # armory
 class Armory < Spaceship
+  # rubocop:disable Metrics/MethodLength
   def initialize
     super
 
-    @new_hero = Hero.new
     @game_engine = GameEngine.new
-  end
+    @name = 'Armory'
+    @description = "Right now you are not allowed to hold sacred weapon.
+  The Gods of War grant you an excalibur and muramasa rifle.
 
-  # rubocop:disable Metrics/MethodLength
-  def room
-    @game_engine.loading
-    puts "Right now you are #{@new_hero.allow_weapon ? 'allowed' : 'not allowed'} to hold these weapon.
-    The Gods of War will grant you an excalibur and muramasa rifle."
-    puts
-    @new_hero.allow_weapon = true
-    puts "Status is #{@new_hero.allow_weapon ? 'allowed' : 'not allowed'}"
-    @game_engine.loading
-    puts
-    puts 'You are going to enter the central corridor with confidence'
-    puts
-    CentralCorridor.new.room
+  Status is: Allowed to hold weapon
+
+  From the Laser Weapon Room, You are now going to enter the Central Corridor with Confidence
+
+  .
+  .
+  .
+  .
+  .
+  \n\n"
   end
   # rubocop:enable Metrics/MethodLength
+
+  attr_reader :description, :name
 end
