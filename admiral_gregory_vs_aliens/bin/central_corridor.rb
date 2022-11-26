@@ -43,7 +43,9 @@ class CentralCorridor < Spaceship
     end
 
     comment = if hero_next_move == true && (%w[kick headbutt].include? action)
-                "Oh no! You went for a #{action} and deal 0 damage. It increases HP of Banshee by #{damage.abs}"
+                "Oh no! You went for a #{action} and deal 0 damage. It increases HP of Banshee by #{damage.abs}\n\n"
+              elsif %w[punch excalibur muramasa].include? action
+                "Great. You deal damage of #{damage.abs}\n\n"
               else
                 "Don't understand the command. Type again
 
@@ -57,8 +59,7 @@ class CentralCorridor < Spaceship
   def check_hero_next_action(banshee, damage)
     banshee -= damage
     comment = if banshee.positive?
-                "Great. You deal damage of #{damage}
-  Banshee's HP is now #{banshee}
+                "Banshee's HP is now #{banshee}
 
   What the hero should do? (punch/ kick/ headbutt/ excalibur/ muramasa)"
               else

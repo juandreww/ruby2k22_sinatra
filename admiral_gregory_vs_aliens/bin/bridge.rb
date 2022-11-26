@@ -26,7 +26,7 @@ class Bridge < Spaceship
   He meets an Alien with type Necromancer. Due to its intelligence, you cannot use the same move repeatedly.
   Approaching slowly yet with intent to kill.
 
-  necromancer's HP is now #{@necromancer}
+  Necromancer's HP is now #{@necromancer}
   What the hero should do? (punch/ kick/ headbutt/ excalibur/ muramasa)"
   end
   # rubocop:enable Metrics/MethodLength
@@ -57,9 +57,13 @@ class Bridge < Spaceship
       damage = -100
       hero_next_move = false
       comment = "Oh no! You went for a #{action} and Necromancer saw it coming.
-    It increases HP of Necromancer by #{damage.abs}"
+    It increases HP of Necromancer by #{damage.abs}\n\n"
     elsif hero_next_move == true
-      comment = "Great! You went for a #{action} and deal damage of #{damage}"
+      comment = "Great! You went for a #{action} and deal damage of #{damage}\n\n"
+    else
+      comment = "Don't understand the command. Type again\n\n
+
+  What the hero should do? (punch/ kick/ headbutt/ excalibur/ muramasa)"
     end
 
     [damage, hero_next_move, comment]
@@ -70,8 +74,7 @@ class Bridge < Spaceship
     necromancer -= damage
 
     comment = if necromancer.positive?
-                "Great. You deal damage of #{damage}
-  Necromancer's HP is now #{necromancer}
+                "Necromancer's HP is now #{necromancer}
 
   What the hero should do? (punch/ kick/ headbutt/ excalibur/ muramasa)"
               else

@@ -39,7 +39,7 @@ class HeroRoom < Spaceship
     end
 
     comment = if hero_next_move == true
-                "Great! You went for a #{action} and deal damage of #{damage}"
+                "Great! You went for a #{action} and deal damage of #{damage}\n\n"
               else
                 "Don't understand the command. Type again
 
@@ -53,7 +53,7 @@ class HeroRoom < Spaceship
   def check_hero_next_action(ghoul, damage)
     ghoul -= damage
     comment = if ghoul.positive?
-                "Ghoul's HP is now #{ghoul}\n
+                " Ghoul's HP is now #{ghoul}\n
   What the hero should do? (punch/ kick/ headbutt)"
               else
                 "Great. You killed Ghoul!

@@ -18,8 +18,7 @@ enable :sessions
 set :session_secret, SecureRandom.hex(64)
 
 get '/' do
-  session[:room] = 'START'
-  redirect to('/game')
+  redirect to('/hero_room')
 end
 
 get '/game' do
@@ -47,15 +46,6 @@ post '/game' do
   end
 end
 
-get '/bar' do
-  <<-ENDRESPONSE
-    Ruby:    #{RUBY_VERSION}
-    Rack:    #{Rack::VERSION}
-    Sinatra: #{Sinatra::VERSION}
-    #{session['m'].inspect}
-  ENDRESPONSE
-end
-
 get '/hero_room' do
   room = HeroRoom.new
   session[:ghoul] = room.ghoul
@@ -71,7 +61,8 @@ post '/hero_room' do
   damage, session[:hero_next_move], comment = room.damage_dealt_by_action(action)
 
   if session[:hero_next_move] == true
-    session[:ghoul], comment = room.check_hero_next_action(session[:ghoul], damage)
+    session[:ghoul], second_comment = room.check_hero_next_action(session[:ghoul], damage)
+    comment += second_comment
 
     unless session[:ghoul].positive?
       session[:hero_next_move] = false
@@ -122,7 +113,8 @@ post '/central_corridor' do
 
   damage, session[:hero_next_move], comment = room.damage_dealt_by_action(action, session[:allow_using_weapon])
   if session[:hero_next_move] == true
-    session[:banshee], comment = room.check_hero_next_action(session[:banshee], damage)
+    session[:banshee], second_comment = room.check_hero_next_action(session[:banshee], damage)
+    comment += second_comment
 
     unless session[:banshee].positive?
       session[:hero_next_move] = false
@@ -191,7 +183,8 @@ post '/bridge' do
   session[:bridge_previous_move] = action
 
   if session[:hero_next_move] == true || damage == -100
-    session[:necromancer], comment = room.check_hero_next_action(session[:necromancer], damage)
+    session[:necromancer], second_comment = room.check_hero_next_action(session[:necromancer], damage)
+    comment += second_comment
 
     unless session[:necromancer].positive?
       session[:hero_next_move] = false
