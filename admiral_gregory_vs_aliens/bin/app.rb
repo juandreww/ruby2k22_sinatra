@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
 require 'sinatra'
+require 'base64'
 require './bin/rubyorg/map'
+require 'hero_room'
 
 set :port, 8080
 set :static, true
 set :public_folder, 'static'
 set :views, 'views'
 enable :sessions
-set :session_secret, 'BADSECRET'
+set :session_secret, SecureRandom.hex(64)
 
 get '/' do
   session[:room] = 'START'
@@ -16,8 +18,6 @@ get '/' do
 end
 
 get '/game' do
-  puts '------------------'
-  puts session[:room]
   room = Map::GameRoom.load_room(session)
 
   if room
@@ -49,4 +49,9 @@ get '/bar' do
     Sinatra: #{Sinatra::VERSION}
     #{session['m'].inspect}
   ENDRESPONSE
+end
+
+get '/hero_room' do
+  session[:room] = 'HERO_ROOM'
+
 end

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require './bin/rubyorg/map'
-require './bin/hero_room'
-require './bin/locked_door'
+require './bin/game_without_view/hero_room'
+require './bin/game_without_view/locked_door'
 require 'test/unit'
 require 'rack/test'
 require 'byebug'
