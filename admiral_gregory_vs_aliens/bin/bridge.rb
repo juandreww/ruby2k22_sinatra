@@ -70,7 +70,8 @@ class Bridge < Spaceship
     necromancer -= damage
 
     comment = if necromancer.positive?
-                "Necromancer's HP is now #{necromancer}
+                "Great. You deal damage of #{damage}
+  Necromancer's HP is now #{necromancer}
 
   What the hero should do? (punch/ kick/ headbutt/ excalibur/ muramasa)"
               else
